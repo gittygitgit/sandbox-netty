@@ -23,7 +23,7 @@ public class SessionServer {
 		// Set up the pipeline factory.
 		bootstrap.setPipelineFactory(new ChannelPipelineFactory() {
 			public ChannelPipeline getPipeline() throws Exception {
-				return Channels.pipeline(new StringEncoder(), subscriptionHandler);
+				return Channels.pipeline(new RequestDecoder(), new StringEncoder(), subscriptionHandler);
 			}
 		});
 

@@ -78,7 +78,49 @@ Does a ChannelHandler cound as a component?
 A ChannelHandler is a part of the Netty layered protocol architecture.
 In Netty, each layer of the protocol stack handles some aspect of servicing either an inbound request or an outbound message.
 
+
+
+
+
+
+Protocol
+- Server listens on socket
+- Client connects to server
+- Server waits for login request
+- Client sends login request
+- Server processes login request
+	- Request is a subscription request if:
+		- no sessionid
+		- sessionid equals ActiveSession id
+	- Subscription request requires replay if firstSequenceNumber is < the ActiveSession's sequence number
 	
+	- On successfully processing a subscription request, do the following:
+		- add Subscription to SubscriptionList, marking Subscription as requiring replay if applicable
+		- if this is the first subscription to be added, register the subscription with the SubscriptionList and attach the SubscriptionList to the loader.
+			
+			- if the subscription requires a rewind
+				- initiate a rewind request
+				- buffer outbound broadcast messages until rewind is completed.
+				- once rewind is completed, mark as completed 
+				- write buffer
+				- process broadcast as normal
+			- if subscription doesn't require a rewind
+				- 
+	
+	
+	- Reject login request if not a subscription request
+	
+	
+- Server 
+
+Login message
+L[sessionid][first sequencenum]
+
+sessionid - S##
+first sequencenum - 4 digit number, left padded with 0's
+
+
+
 
 	
 	
