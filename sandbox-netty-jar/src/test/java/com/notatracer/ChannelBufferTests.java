@@ -4,6 +4,7 @@ import java.nio.ByteOrder;
 
 import junit.framework.TestCase;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
 
@@ -60,5 +61,18 @@ public class ChannelBufferTests extends TestCase {
 		System.out.println((char)buff.readByte());
 		
 	}
+	
+	public void test2() {
+		ChannelBuffer buff = ChannelBuffers.wrappedBuffer("L12340000".getBytes());
+		byte[] b = "0000".getBytes();
+		System.out.println(b.length);
+		System.out.println(buff.getInt(5));
+		System.out.println(Integer.toBinaryString(10));
+		System.out.println(new Integer(808464432).toString());
+		
+		System.out.println(Integer.parseInt("00110000001100000011000000110000", 2));
+	}
+	
+	
 
 }
